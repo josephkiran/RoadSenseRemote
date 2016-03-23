@@ -53,9 +53,9 @@
             // 
             // txtDataSend
             // 
-            this.txtDataSend.Location = new System.Drawing.Point(768, 42);
+            this.txtDataSend.Location = new System.Drawing.Point(562, 42);
             this.txtDataSend.Name = "txtDataSend";
-            this.txtDataSend.Size = new System.Drawing.Size(120, 22);
+            this.txtDataSend.Size = new System.Drawing.Size(326, 22);
             this.txtDataSend.TabIndex = 1;
             // 
             // btnStart
@@ -141,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(386, 733);
+            this.ClientSize = new System.Drawing.Size(940, 733);
             this.Controls.Add(this.btnDiscard);
             this.Controls.Add(this.btnBumper);
             this.Controls.Add(this.btnWorst);
