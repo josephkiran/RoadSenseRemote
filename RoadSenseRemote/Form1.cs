@@ -12,8 +12,7 @@ namespace RoadSenseRemote
 {
     public partial class Form1 : Form
     {
-        ClientSocket _scClient = new ClientSocket("192.168.2.8",1800);
-        SocketServer _scServer = new SocketServer();
+        JKSocket _scServer = new JKSocket();
         bool _goodStarted = false;
         bool _okStarted = false;
         bool _badStarted = false;
@@ -25,10 +24,8 @@ namespace RoadSenseRemote
         public Form1()
         {
             InitializeComponent();
-            _scServer.RecvEvt = recvText;
-            _scServer.ConnectionDone = Connected;
-            _scClient.RecdDataEvent = recvText;
-            _scClient.StatusEvent = ClientStatusUpdate;
+            _scServer.RecdDataEvent = recvText;
+            _scServer.StatusEvent = ClientStatusUpdate;
             EnableDisableButtons(false);
             //btnStart.BackColor  = Color.Green;
             btnStart.Enabled = true;
@@ -39,6 +36,7 @@ namespace RoadSenseRemote
             if(cs == ConnectionStatus.Connected)
             {
                 lblDataRecv.Invoke(new MethodInvoker(() => btnSend.Enabled = true));
+                Connected();
             }
 
             
@@ -59,14 +57,15 @@ namespace RoadSenseRemote
         private void btnStart_Click(object sender, EventArgs e)
         {
             //_scServer.StartServer();
-            _scClient.ConnectToServer();
-             btnStart.Enabled = false;
+            Task t = new Task(new Action(_scServer.StartServer));
+            t.Start();
+            btnStart.Enabled = false;
         }
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            _scClient.SendData(txtDataSend.Text);
-            //_scServer.SendData(txtDataSend.Text);
+            //_scClient.SendData(txtDataSend.Text);
+            _scServer.SendData(txtDataSend.Text);
         }
 
         private void recvText(string msg)
